@@ -1,4 +1,4 @@
-# my-i3-config
+# my-dotfiles
 
 ## This repository includes the configuration files for the apps that I use.
 

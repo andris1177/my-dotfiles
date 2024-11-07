@@ -1,6 +1,6 @@
 #!/bin/bash
 
-choice=$(echo -e "no\nyes" | dmenu -p "Do you want to shutdown?")
+choice=$(echo -e "no\yes" | dmenu -p "Do you want to shutdown?")
 
 if [ "$choice" == "yes" ]; then
     shutdown -h now

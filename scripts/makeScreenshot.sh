@@ -1,6 +1,13 @@
 #!/bin/bash
-sleep 0.1
-screenshot_dir="$HOME/screenshots"
+
+# Directory to save screenshots
+screenshot_dir="/data/photos-videos/screenshots"
+
+# Filename for the screenshot
 filename="$screenshot_dir/screenshot_$(date +"%Y-%m-%d_%H-%M-%S").png"
-import "$filename"
-xclip -selection clipboard -t image/png -i "$filename"
+
+# Use grim and slurp for region selection
+grim -g "$(slurp)" "$filename"
+
+# Copy the screenshot to clipboard
+wl-copy < "$filename"

@@ -3,7 +3,7 @@
     "height": 24,
     "modules-left": ["hyprland/workspaces"],
     "modules-right": [
-        "idle_inhibitor",
+        "custom/pacman",
         "cpu",
         "memory",
         "network",
@@ -11,78 +11,65 @@
         "temperature",
         "custom/nvidia",
         "clock"],
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
+
+    "custom/pacman": {
+        "format": "󰣇  {}",
+        "interval": 360,                     
+        "exec": "checkupdates | wc -l",       
+        "exec-if": "exit 0",                  
+        "signal": 8
     },
-    "hyprland/mode": {
-        "format": "<span style=\"italic\">{}</span>"
+
+    "cpu": {
+        "format": ": {usage}%",
+        "on-click": "kitty -e btop"
     },
-    "hyprland/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-     "clock": {
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format": "{:L%Y-%m-%d<small>[%a]</small> <tt><small>%H:%M</small></tt>}"
-},
-   "cpu": {
-        "format": "cpu usage: {usage}%"
-    },
+
     "memory": {
-        "format": "ram: {}%"   
+        "format": "  {}%",
+        "on-click": "kitty -e btop"
     },
-    "temperature": {
-        "thermal-zone": 2,
-        "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
-        "critical-threshold": 80,
-        "format-critical": "{icon} {temperatureC}°C",
-        "format": "cpu temp: {temperatureC}°C",
-        "format-icons": ["", "", ""]
-    },
-     "network": {
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "ethernet {ifname}",
-        "tooltip-format": " {ifname} via {gwaddr}",
-        "format-linked": " {ifname} (No IP)",
+
+    "network": {
+        "format-wifi": "  {essid} ({signalStrength}%)",
+        "format-ethernet": "󰈁  {ifname}",
+        "tooltip-format": "󰈁 {ifname} via {gwaddr}",
+        "format-linked": "󰖪 {ifname} (No IP)",
         "format-disconnected": "Disconnected ⚠ {ifname}",
-        "format-alt": " {ifname}: {ipaddr}/{cidr}"
+        "format-alt": "󰈁 {ifname}: {ipaddr}/{cidr}"
     },
-   "pulseaudio": {
+
+    "pulseaudio": {
         "scroll-step": 5,
-        "format": "{icon} {volume}% {format_source}",
+        "format": "{icon}  {volume}% {format_source}",
         "format-bluetooth": " {icon} {volume}% {format_source}",
-        "format-bluetooth-muted": "  {icon} {format_source}",
-        "format-muted": "mute {format_source}",
+        "format-bluetooth-muted": "󰝟  {icon} {format_source}",
+        "format-muted": "󰝟 {format_source}",
         "format-source": " {volume}%",
         "format-source-muted": "",
         "format-icons": {
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol",
-        "on-click-right": "foot -a pw-top pw-top"
+        "on-click": "pavucontrol"
+    },
+    
+    "temperature": {
+        "thermal-zone": 2,
+        "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+        "format": "cpu temp: {temperatureC}°C",
+        "on-click": "kitty -e btop"
     },
 
+ 
     "custom/nvidia": {
-    "exec": "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,nounits,noheader | sed 's/\\([0-9]\\+\\), \\([0-9]\\+\\)/gpu usage: \\1% gpu temp: \\2°C/g'",
-    "format": "{}",
-    "interval": 2
-}
+        "exec": "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,nounits,noheader | sed 's/\\([0-9]\\+\\), \\([0-9]\\+\\)/gpu usage: \\1% gpu temp: \\2°C/g'",
+        "on-click": "kitty -e nvtop"
+    },
 
-    }
+
+    "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "{:L%Y-%m-%d [%a] %H:%M}"
+    }       
+}
 
